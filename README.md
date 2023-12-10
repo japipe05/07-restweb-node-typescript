@@ -14,3 +14,15 @@ Crear Keys //debe de tener git y el path en enviromentes  D:\Aplicaciones\Git\us
 > openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout server.key -out server.crt
 
 > npm i dotenv env-var
+
+
+# Base de datos postgres 
+> docker compose up -d
+
+
+# Trabajar con prisma
+>npm install prisma --save-dev
+
+> npx prisma init --datasource-provider postgresql
+
+>npx prisma migrate dev --name init
