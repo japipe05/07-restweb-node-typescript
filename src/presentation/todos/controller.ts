@@ -1,6 +1,7 @@
 
 import { Request,Response } from "express";
 import {prisma} from '../../data/postgres/index';
+import { CreateTodoDto, UpdateTodoDto } from "../../domain/dtos";
 const todos=[
     {id: 1, text:'Buy Milk', completedAt: new Date()},
     {id: 2, text:'Buy Bread', completedAt: null},
@@ -34,12 +35,14 @@ export class ToddosController{
     }
     //Post 
     public createTodo = async(req:Request, res:Response)=>{
-        const {text} = req.body;
-        if(!text) return res.status(400).json({error: 'Text property is required'});
 
+        const [error, createTodoDto] = CreateTodoDto.create(req.body);
 
+        if (error) return  res.status(400).json({error});
+        //const {text} = req.body;
+        //if(!text) return res.status(400).json({error: 'Text property is required'});
         const todo = await prisma.todo.create({
-            data:{text}
+            data:createTodoDto!
         });
 
         // const newTodo = {
@@ -54,7 +57,10 @@ export class ToddosController{
     //PUT
     public UpdateTodo = async(req:Request, res:Response)=>{
         const id= +req.params.id;
-        if(isNaN(id)) return res.status(400).json({error: 'Invalid id not a number'});
+        const [error,updateTodoDTO] = UpdateTodoDto.create({...req.body,id});
+
+        if (error) return res.status(400).json({error});
+        //if(isNaN(id)) return res.status(400).json({error: 'Invalid id not a number'});
         //console.log(id,10)
         //const todo= todos.find(todo=>todo.id==id);
         
@@ -63,6 +69,7 @@ export class ToddosController{
                 id: id,
               },
         });
+
         if(!todo) return res.status(404).json({error: `Todo with id ${id} not found`});
         
        
@@ -72,18 +79,20 @@ export class ToddosController{
         //     : todo.completedAt = new Date(completedAt||todo.completedAt);
         //! OJO, referencia
 
-        const {text, completedAt} = req.body;
-        console.log(text,completedAt)
-        if(!text) return res.status(400).json({error: 'Text property is required'});
+        //const {text, completedAt} = req.body;
+        //console.log(text,completedAt)
+        //if(!text) return res.status(400).json({error: 'Text property is required'});
 
         const updatetodo = await prisma.todo.update({
             where: {
                 id: id,
               },
-              data:{
-                text: text,
-                completedAt: (completedAt) ? new Date(completedAt): null
-              }
+              data:updateTodoDTO!.values
+              //{
+                
+              //  text: text,
+                //completedAt: (completedAt) ? new Date(completedAt): null
+              //}
         });
         //res.json(todo);
         res.json(updatetodo);
