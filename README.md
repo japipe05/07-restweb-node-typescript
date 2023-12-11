@@ -26,3 +26,4 @@ Crear Keys //debe de tener git y el path en enviromentes  D:\Aplicaciones\Git\us
 > npx prisma init --datasource-provider postgresql
 
 >npx prisma migrate dev --name init
+
