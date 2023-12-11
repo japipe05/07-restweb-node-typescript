@@ -2,11 +2,11 @@
 import { Request,Response } from "express";
 import {prisma} from '../../data/postgres/index';
 import { CreateTodoDto, UpdateTodoDto } from "../../domain/dtos";
-const todos=[
-    {id: 1, text:'Buy Milk', completedAt: new Date()},
-    {id: 2, text:'Buy Bread', completedAt: null},
-    {id: 3, text:'Buy Butter', completedAt: new Date()},
-];
+// const todos=[
+//     {id: 1, text:'Buy Milk', completedAt: new Date()},
+//     {id: 2, text:'Buy Bread', completedAt: null},
+//     {id: 3, text:'Buy Butter', completedAt: new Date()},
+// ];
 export class ToddosController{
     // DI: Dependenci inyección
     constructor(){}
