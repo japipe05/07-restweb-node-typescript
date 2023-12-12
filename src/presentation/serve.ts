@@ -1,6 +1,6 @@
 import express,{Router} from 'express';
 import path from 'path';
-
+import compression from 'compression';
 interface Options{
     port:number;
     routes: Router;
@@ -22,6 +22,7 @@ export class Server{
         //midelware funcion que se ejecuta cuando paso por ahi
         this.app.use(express.json());//raw
         this.app.use(express.urlencoded({extended: true}));//x-www-form-urkencode
+        this.app.use(compression());
         //Public Folder
         this.app.use(express.static(this.publicPath));
         //Routes

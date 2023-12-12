@@ -28,3 +28,6 @@ Crear Keys //debe de tener git y el path en enviromentes  D:\Aplicaciones\Git\us
 >npx prisma migrate dev --name init
 
 readme 3
+
+
+> npm i --save-dev @types/compression
