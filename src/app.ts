@@ -8,10 +8,10 @@ import { Server } from "./presentation/serve";
 
 
 function main(){
-    console.log('main');
+    //console.log('main');
     const serve = new Server({
         port: envs.PORT,
-        publi_Path: envs.PUBLIC_PATH,
+        public_Path: envs.PUBLIC_PATH,
         routes: AppRoutes.routes,
     });
     serve.start();

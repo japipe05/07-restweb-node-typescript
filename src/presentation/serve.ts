@@ -4,17 +4,18 @@ import compression from 'compression';
 interface Options{
     port:number;
     routes: Router;
-    publi_Path?:string;
+    public_Path?:string;
 }
 export class Server{
-    private app= express();
+    public readonly app= express();
+    private serverListener:any;
     private readonly port:number;
     private readonly publicPath: string;
     private readonly routes:Router;
     constructor(options: Options){
-        const  {port, routes, publi_Path = 'public'} = options;
+        const  {port, routes, public_Path = 'public'} = options;
         this.port = port;
-        this.publicPath = publi_Path;
+        this.publicPath = public_Path;
         this.routes = routes;
         }
     async start(){
@@ -35,8 +36,11 @@ export class Server{
             res.sendFile(indexpath);
         });
 
-        this.app.listen(this.port,()=>{
+        this.serverListener = this.app.listen(this.port,()=>{
             console.log(`localhost:${this.port}`);
         });
+    }
+    public close(){
+        this.serverListener?.close();
     }
 }

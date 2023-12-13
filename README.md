@@ -31,3 +31,19 @@ readme 3
 
 
 > npm i --save-dev @types/compression
+
+# Test
+
+https://gist.github.com/Klerith/98d7b1bc0f1525e892f260813cad1007
+
+>npm install -D jest @types/jest ts-jest supertest
+>npx jest --init
+
+En el archivo jest.config.js configurar
+
+preset: 'ts-jest',
+testEnvironment: "jest-environment-node",
+
+npm i --save-dev @types/supertest
+
+npm i dotenv-cli
